@@ -1,0 +1,71 @@
+#card-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.bento-grid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr); /* Three equal columns */
+	gap: 20px; /* Space between the cards */
+}
+
+.card-title {
+	font-size: 1.2em;
+	font-weight: 700;
+	display: flex;
+	align-items: center;
+
+
+}
+
+#add-form {
+	filter:opacity(0.1);
+}
+
+#add-form:hover {
+	filter:opacity(0.5);
+}
+
+
+.card-title {
+	display: flex !important;
+	align-items: center !important;
+}
+
+.col {
+	text-align: left !important; /* Left-aligns all content inside the column */
+  }
+  
+  #dates {
+	display: flex;
+	justify-content: right;
+  }
+  
+
+.badge {
+    margin: 5px !important;
+    font-size: 1.1em !important;
+}
+
+.custom-gray-badge {
+    background-color: rgb(191, 191, 191);
+  }
+
+#enter {
+
+	border-radius: 10px;
+	background: #3ED008;
+	box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+	width: 70px;
+	height: 37px;
+	flex-shrink: 0;
+	border: 0px;
+	color: #FFF;
+	text-align: center;
+	font-family: 'Inter';
+	font-size: 16px;
+	font-style: normal;
+	font-weight: 700;
+	line-height: normal;
+}
