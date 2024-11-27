@@ -1,0 +1,58 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.sidebar {
+    width: 8vh; /* Fixed width for the sidebar */
+    height: 50vh; /* Sidebar height is 3/4 of the viewport */
+    background-color: #FF5151;
+    position: fixed;
+    top: 50%; /* Start the sidebar vertically centered */
+    /* left: 10px; */
+    transform: translateY(-50%); /* Center the sidebar vertically */
+    border-radius: 0 25px 25px 0;
+    padding: 0px;
+	margin: 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly; /* Evenly space the items */
+    align-items: center; /* Center the icons horizontally */
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar ul li {
+    margin: 0; /* Remove default margin */
+}
+
+.sidebar ul li a {
+    color: white;
+    font-size: 24px;
+    text-decoration: none;
+    padding: 15px;
+    display: block;
+    border-radius: 50%; /* Circular pill shape for each icon */
+    transition: background-color 0.3s, transform 0.3s;
+	text-align: center;
+}
+
+.sidebar ul li a:hover {
+    /* background-color: #FF7F7F;  */
+    transform: scale(1.3); 
+	text-align: center;
+}
+
+

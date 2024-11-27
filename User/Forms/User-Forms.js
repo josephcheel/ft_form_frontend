@@ -19,6 +19,8 @@ class UserForms extends HTMLElement {
 		startDate: "01/11/2024",
 		endDate: "15/11/2024",
 		badges: [{ text: "Estudiantes" }, { text: "Badge" }],
+		state: 'Complete',
+		color: '#3ED008',
 	  });
 	  this.addCard({
 		id: 2,
@@ -26,6 +28,8 @@ class UserForms extends HTMLElement {
 		startDate: "16/11/2024",
 		endDate: "30/11/2024",
 		badges: [{ text: "Info", }, { text: "Alert" }],
+		state: 'New',
+		color: '#3ED008',
 	  });
 	  this.addCard({
 		id: 3,
@@ -33,6 +37,8 @@ class UserForms extends HTMLElement {
 		startDate: "16/11/2024",
 		endDate: "30/11/2024",
 		badges: [{ text: "Info"}, { text: "Alert" }],
+		state: 'Normal',
+		color: '#3ED008',
 	  });
 	  this.addCard({
 		id: 4,
@@ -40,6 +46,8 @@ class UserForms extends HTMLElement {
 		startDate: "16/11/2024",
 		endDate: "30/11/2024",
 		badges: [{ text: "Info" }, { text: "Alert"}],
+		state: 'New',
+		color: '#3ED008',
 	  });
 	  this.addCard({
 		id: 5,
@@ -47,13 +55,17 @@ class UserForms extends HTMLElement {
 		startDate: "16/11/2024",
 		endDate: "30/11/2024",
 		badges: [{ text: "Info" }, { text: "Alert" }],
+		state: 'Complete',
+		color: '#3ED008',
 	  });
 	  this.addCard({
-		id: 5,
+		id: 6,
 		title: "Dynamic Card 2",
 		startDate: "16/11/2024",
 		endDate: "30/11/2024",
 		badges: [{ text: "Info" }, { text: "Alert" }],
+		state: 'New',
+		color: '#3ED008',
 	  });
   
 	  this.shadow.appendChild(this.container);
@@ -85,7 +97,65 @@ class UserForms extends HTMLElement {
 	handleCardFavorite(id) {
 		console.log('Star clicked', id);
 	}
-	addCard({ id, title, startDate, endDate, state /* Complete, New, Normal */ }) {
+	insertTrophy(card, id)
+	{
+		let stateElement = card.querySelector(`#trophy-${id}`);
+			
+		let completeTrophy = document.createElement('img');
+		completeTrophy.src = "/public/assets/icons/trophy-black.svg";
+		completeTrophy.width = 30;
+		completeTrophy.height = 30;
+
+		stateElement.appendChild(completeTrophy);
+	}
+	insertNew(card, id, color)
+	{
+		let stateElement = card.querySelector(`#state-${id}`);
+		let newTitle = document.createElement('h4');
+		newTitle.innerHTML = "New";
+		newTitle.style.color = color;
+		newTitle.style.fontSize = '3rem';
+		newTitle.style.fontWeight = 'bold';
+		
+		// newTitle.style.textShadow = '0 0 5px rgba(0, 0, 0, 0.5)';
+		
+		stateElement.appendChild(newTitle);
+	}
+	insertCalendar(card, id, startDate, endDate)
+	{
+		let stateElement = card.querySelector(`#state-${id}`);
+		
+		let abbr = document.createElement('abbr');
+		abbr.title = `${startDate} - ${endDate}`;
+		abbr.style.fontSize = '1.0rem';
+		abbr.style.fontWeight = 'bold';
+		abbr.style.color = '#000';
+		
+		let calendar = document.createElement('img');
+		calendar.src = "/public/assets/icons/calendar2.svg";
+		calendar.width = 30;
+		calendar.height = 30
+
+		
+		abbr.appendChild(calendar);
+		stateElement.appendChild(abbr);
+	}
+	insertTrophyComplete(card, id)
+	{
+		let stateElement = card.querySelector(`#trophy-${id}`);
+			
+		let completeTrophy = document.createElement('img');
+		completeTrophy.src = "/public/assets/icons/trophy.svg";
+		completeTrophy.width = 30;
+		completeTrophy.height = 30;
+
+		stateElement.appendChild(completeTrophy);
+	}
+	clickEnter(id)
+	{
+		console.log('Enter clicked', id);
+	}
+	addCard({ id, title, startDate, endDate, state /* Complete, New, Normal */, color }) {
 	  const GridOfCards = this.container.querySelector('#appendCardsHere');
   
 	  if (GridOfCards) {
@@ -96,19 +166,18 @@ class UserForms extends HTMLElement {
 		  <div class="card mb-2">
 			<div class="card-body">
 			  <!-- Row 1: Header Section -->
-			  <div class="row" id="row-header">
-				<div id="state" class="col-auto">
+			  <div class="row mb-5" id="row-header">
+				<div id="state-${id}" class="col-auto">
 				
-					<img src="/public/assets/icons/calendar2.svg" width="30" height="30">
 				</div>
 				<div class="col align-items-center">
 				  <section class="d-flex justify-content-end">
 					<div class="row w-100 justify-content-end">
 					
 					  <div class="col-auto text-end">
-						<abbr title="${startDate} - ${endDate}">
-							<img src="/public/assets/icons/trophy-black.svg" width="30" height="30">
-						</abbr>
+						<div id="trophy-${id}">
+							
+						</div>
 					  </div>
 					</div>
 				  </section>
@@ -116,52 +185,73 @@ class UserForms extends HTMLElement {
 			  </div>
   
 			  <!-- Row 2: Card Title -->
-			  <div class="row mt-5">
+			  <div class="row">
 				<div class="col">
-				  <h5 class="card-title text-center">${title}</h5>
+				  <h5 class="card-title text-center justify-content-center">${title}</h5>
 				</div>
 			  </div>
   
-			  <div class="row mt-5">
-				<div class="col d-flex justify-content-end">
-				  <button id="enter">Enter</button>
-			  </div>
-			  <!-- Row 3: Badges -->
+				<div class="d-flex align-items-end mt-4">
+					<div class="row w-100">
+						<div class="col d-flex justify-content-end">
+							<button id="enter-${id}">Enter</button>
+						</div>
+					</div>
+				</div>
+
 			  </div>
 			</div>
 		  </div>
 		`;
-		let state;
+		
 		if (state === 'Complete')
 		{
-			state = card.querySelector('#state');
-			completeTrophy = document.createElement('img');
-			styleLink.setAttribute('rel', 'stylesheet');
-			styleLink.setAttribute('href', '/User/Forms/styles.css');
-		
-			
-			state.appendChild()
-
+			this.insertTrophyComplete(card, id);
+			this.insertCalendar(card, id, startDate, endDate);
 		}
 		else if (state === 'New')
 		{
-
+			
+			this.insertNew(card, id, color);
+			let header = card.querySelector('#row-header');
+			header.classList.remove('mb-5');
+			header.classList.add('mb-2');
+			this.insertTrophy(card, id);
 		}
-		else (state === 'Normal')
+		else if (state === 'Normal')
 		{
-
+			this.insertCalendar(card, id, startDate, endDate);
+			this.insertTrophy(card, id);
 		}
+		const style = document.createElement('style');
+		style.textContent = `
+			#enter-${id} {
+			border-radius: 10px;
+			box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+			width: 70px;
+			height: 37px;
+			flex-shrink: 0;
+			border: 0px;
+			color: #FFF;
+			text-align: center;
+			font-family: 'Inter';
+			font-size: 16px;
+			font-style: normal;
+			font-weight: 700;
+			line-height: normal;
+			background: ${color};
+		}`;
+
+		card.querySelector(`#enter-${id}`).addEventListener('click', () => this.clickEnter(id));
+		card.appendChild(style);
 		// Attach click event to the card
 		GridOfCards.appendChild(card);
 	  }
 		
 	}
-  
 	connectedCallback() {
 		console.log('Admin Forms mounted');
-		
 	}
   }
   
   window.customElements.define('user-forms', UserForms);
-  
