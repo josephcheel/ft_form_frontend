@@ -28,11 +28,7 @@
 }
 
 
-.star-container {
-    position: relative;
-    width: 40px; /* Match the width of the images */
-    height: 40px; /* Match the height of the images */
-}
+
 
 .card-title {
 	display: flex !important;
