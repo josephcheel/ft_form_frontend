@@ -1,72 +1,20 @@
-class UserForms extends HTMLElement {
+class AdminForms extends HTMLElement {
 	constructor() {
 	  super();
 	  this.shadow = this.attachShadow({ mode: 'open' });
-  
+	  this._query = '';
 	  this.container = document.createElement('div');
 	  this.container.classList.add('container', 'mt-4');
 	  this.container.innerHTML = `
 		<div id="appendCardsHere" class="row g-3">
-
+		
 		</div>
+
 	  `;
 	  this.importStyles();
 	  
 	  // Add dynamic cards
-	  this.addCard({
-		id: 1,
-		title: "Formulario Empleo Estudiantes",
-		startDate: "01/11/2024",
-		endDate: "15/11/2024",
-		badges: [{ text: "Estudiantes" }, { text: "Badge" }],
-		state: 'Complete',
-		color: '#3ED008',
-	  });
-	  this.addCard({
-		id: 2,
-		title: "Formulario Satisfacción Piscina",
-		startDate: "16/11/2024",
-		endDate: "30/11/2024",
-		badges: [{ text: "Info", }, { text: "Alert" }],
-		state: 'New',
-		color: '#3ED008',
-	  });
-	  this.addCard({
-		id: 3,
-		title: "Dynamic Card 2",
-		startDate: "16/11/2024",
-		endDate: "30/11/2024",
-		badges: [{ text: "Info"}, { text: "Alert" }],
-		state: 'Normal',
-		color: '#3ED008',
-	  });
-	  this.addCard({
-		id: 4,
-		title: "Dynamic Card 2",
-		startDate: "16/11/2024",
-		endDate: "30/11/2024",
-		badges: [{ text: "Info" }, { text: "Alert"}],
-		state: 'New',
-		color: '#3ED008',
-	  });
-	  this.addCard({
-		id: 5,
-		title: "Dynamic Card 2",
-		startDate: "16/11/2024",
-		endDate: "30/11/2024",
-		badges: [{ text: "Info" }, { text: "Alert" }],
-		state: 'Complete',
-		color: '#3ED008',
-	  });
-	  this.addCard({
-		id: 6,
-		title: "Dynamic Card 2",
-		startDate: "16/11/2024",
-		endDate: "30/11/2024",
-		badges: [{ text: "Info" }, { text: "Alert" }],
-		state: 'New',
-		color: '#3ED008',
-	  });
+
   
 	  this.shadow.appendChild(this.container);
 	}
@@ -78,7 +26,7 @@ class UserForms extends HTMLElement {
   
 	  const styleLink = document.createElement('link');
 	  styleLink.setAttribute('rel', 'stylesheet');
-	  styleLink.setAttribute('href', '/User/Forms/styles.css');
+	  styleLink.setAttribute('href', '/Admin/Forms/styles.css');
   
 	  const bootstrap = document.createElement('link');
 	  bootstrap.setAttribute('rel', 'stylesheet');
@@ -88,170 +36,221 @@ class UserForms extends HTMLElement {
 	  this.shadow.appendChild(generalBootstrap);
 	  this.shadow.appendChild(bootstrap);
 	}
-	handleCardClick(id)
-	{
-		console.log('Card clicked', id);
-		// Redirect to the form page
-		// window.location.href = `/form/?id=${id}`;
-	}
-	handleCardFavorite(id) {
-		console.log('Star clicked', id);
-	}
-	insertTrophy(card, id)
-	{
-		let stateElement = card.querySelector(`#trophy-${id}`);
+	
+	addCard({ id, title, startDate, endDate, badges = [], state, color, minutes, imageUrl }) {
+		const GridOfCards = this.container.querySelector('#appendCardsHere');
+	
+		if (GridOfCards) {
+			const card = document.createElement('section');
+			card.classList.add('col-12', 'col-sm-6', 'col-md-4', 'col-lg-3');
+			card.setAttribute('data-id', id);
+			card.innerHTML = `
+				   <div class="card" >
+                <div id="header-${id}"class="card-header" style="height:150px " >
 			
-		let completeTrophy = document.createElement('img');
-		completeTrophy.src = "/public/assets/icons/trophy-black.svg";
-		completeTrophy.width = 30;
-		completeTrophy.height = 30;
+                    <!-- <img  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5GQARsHihVdu6u6zx-dPvQy9z42nlQXo8bg&s" class="card-img-top" alt="Card image"> -->
+                </div>
+                <div class="container" style="">
+                    <!-- First Row -->
+            <div class="row g-3 d-flex align-items-center justify-content-between mt-1 ms-2 me-2" >
+                <!-- First column, aligned to the start -->
+                <div class="col-2 d-flex align-items-center pe-1">
+                    
+                </div>
 
-		stateElement.appendChild(completeTrophy);
-	}
-	insertNew(card, id, color)
-	{
-		let stateElement = card.querySelector(`#state-${id}`);
-		let newTitle = document.createElement('h4');
-		newTitle.innerHTML = "New";
-		newTitle.style.color = color;
-		newTitle.style.fontSize = '3rem';
-		newTitle.style.fontWeight = 'bold';
-		
-		// newTitle.style.textShadow = '0 0 5px rgba(0, 0, 0, 0.5)';
-		
-		stateElement.appendChild(newTitle);
-	}
-	insertCalendar(card, id, startDate, endDate)
-	{
-		let stateElement = card.querySelector(`#state-${id}`);
-		
-		let abbr = document.createElement('abbr');
-		abbr.title = `${startDate} - ${endDate}`;
-		abbr.style.fontSize = '1.0rem';
-		abbr.style.fontWeight = 'bold';
-		abbr.style.color = '#000';
-		
-		let calendar = document.createElement('img');
-		calendar.src = "/public/assets/icons/calendar2.svg";
-		calendar.width = 30;
-		calendar.height = 30
+                <!-- Second column, aligned to the center -->
+                <div  class="col-2 d-flex flex-column align-items-center justify-content-center pe-1 mb-5 position-relative ">
+                    <!-- Stars stacked vertically -->
+                     <div id="trophy-${id}"class="d-flex flex-column align-items-center justify-content-center star-container mb-5">
+						
+                        
+                        <!-- Checkbox behind the stars -->
+                     </div>
+                </div>
 
-		
-		abbr.appendChild(calendar);
-		stateElement.appendChild(abbr);
-	}
-	insertTrophyComplete(card, id)
-	{
-		let stateElement = card.querySelector(`#trophy-${id}`);
-			
-		let completeTrophy = document.createElement('img');
-		completeTrophy.src = "/public/assets/icons/trophy.svg";
-		completeTrophy.width = 30;
-		completeTrophy.height = 30;
+                <!-- Third column, aligned to the end -->
+                <div class="col-2 d-flex align-items-center pe-1">
+                    <abbr title="${startDate} - ${endDate}">
+                        <img class="mb-3" src="/public/assets/icons/calendar2.svg" width="30" height="30">
+                    </abbr>
+                </div>
+            </div>
+            </div>
+                    <!-- Second Row -->
+                    <div class="row ms-1 me-1">
+                        <h3 class="card-title" >${title}</h2>
+                    </div>
 
-		stateElement.appendChild(completeTrophy);
-	}
-	clickEnter(id)
-	{
-		console.log('Enter clicked', id);
-	}
-	addCard({ id, title, startDate, endDate, state /* Complete, New, Normal */, color }) {
-	  const GridOfCards = this.container.querySelector('#appendCardsHere');
-  
-	  if (GridOfCards) {
-		const card = document.createElement('section');
-		card.classList.add('col-12', 'col-sm-6', 'col-md-4', 'col-lg-3');
-		card.setAttribute('data-id', id);
-		card.innerHTML = `
-		  <div class="card mb-2">
-			<div class="card-body">
-			  <!-- Row 1: Header Section -->
-			  <div class="row mb-5" id="row-header">
-				<div id="state-${id}" class="col-auto">
+                    <!-- Third Row -->
+                    <div class="row ms-2 me-2">
+                        <!-- <div class="col-md-12"> -->
+                            <div class="p-3 d-flex justify-content-start ">${minutes ? minutes :  '5'} min</div>
+                        <!-- </div> -->
+                    </div>
+                    
+                    <div class="row ms-2 me-2 mt-5">
+                        <div class="col-md-12 d-flex justify-content-end align-items-end mt-3">
+                          
+                            <button  type="button" class="btn " style="background-color: ${color}; border 0px; font-weight: bold; color: white;">Enter</button>
+                        </div>
+                    </div>
+			`;
+	
+			const style = document.createElement('style');
+			style.textContent = `
+				.card-tall {
+					height: 400px;
+				}
+				.card-header {
+					background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5GQARsHihVdu6u6zx-dPvQy9z42nlQXo8bg&s');
+					background-size: cover;
+					background-repeat: no-repeat;
+					background-position: center;
+				}
+				.star-container {
+					border-radius: 50%;
+					background: #ededed;
+					height: 50px;
+					width: 50px;
+				}
 				
-				</div>
-				<div class="col align-items-center">
-				  <section class="d-flex justify-content-end">
-					<div class="row w-100 justify-content-end">
+			`;
+		
+			let cardHeader = card.querySelector(`#header-${id}`);
+
+		// Set the background image to the card element
+				cardHeader.style.backgroundImage = `url('${imageUrl}')`;
+				cardHeader.style.backgroundSize = 'cover';
+				cardHeader.style.backgroundRepeat = 'no-repeat';
+				cardHeader.style.backgroundPosition = 'center';
+				
+				
+
+			card.appendChild(style);
+
+			if (state === 'New')
+			{
+				let trophyParent = card.querySelector(`#trophy-${id}`); 
+				if (trophyParent) {
+					// Set the checkbox's checked value based on the isFavourite value
+					let completeTrophy = document.createElement('img');
+					completeTrophy.src = "/public/assets/icons/trophy-black.svg";
+					completeTrophy.width = 30;
+					completeTrophy.height = 30;
 					
-					  <div class="col-auto text-end">
-						<div id="trophy-${id}">
-							
-						</div>
-					  </div>
-					</div>
-				  </section>
-				</div>
-			  </div>
-  
-			  <!-- Row 2: Card Title -->
-			  <div class="row">
-				<div class="col">
-				  <h5 class="card-title text-center justify-content-center">${title}</h5>
-				</div>
-			  </div>
-  
-				<div class="d-flex align-items-end mt-4">
-					<div class="row w-100">
-						<div class="col d-flex justify-content-end">
-							<button id="enter-${id}">Enter</button>
-						</div>
-					</div>
-				</div>
-
-			  </div>
-			</div>
-		  </div>
-		`;
-		
-		if (state === 'Complete')
-		{
-			this.insertTrophyComplete(card, id);
-			this.insertCalendar(card, id, startDate, endDate);
-		}
-		else if (state === 'New')
-		{
+					trophyParent.appendChild(completeTrophy);
+				}
+				let newTitle = card.querySelector(`#header-${id}`); 
+				if (newTitle) {
+					// Set the checkbox's checked value based on the isFavourite value
+					let completeTrophy = document.createElement('h3');
+					completeTrophy.textContent = 'New';
+					
+					// Set the color of the text
+					completeTrophy.style.color = `${color}`;
+					
+					// Set the font size and font weight
+					completeTrophy.style.fontSize = '24px';   // Set font size (adjust as needed)
+					completeTrophy.style.fontWeight = 'bold'; // Set font weight (use 'bold' or a numeric value like '600')
+					
 			
-			this.insertNew(card, id, color);
-			let header = card.querySelector('#row-header');
-			header.classList.remove('mb-5');
-			header.classList.add('mb-2');
-			this.insertTrophy(card, id);
-		}
-		else if (state === 'Normal')
-		{
-			this.insertCalendar(card, id, startDate, endDate);
-			this.insertTrophy(card, id);
-		}
-		const style = document.createElement('style');
-		style.textContent = `
-			#enter-${id} {
-			border-radius: 10px;
-			box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-			width: 70px;
-			height: 37px;
-			flex-shrink: 0;
-			border: 0px;
-			color: #FFF;
-			text-align: center;
-			font-family: 'Inter';
-			font-size: 16px;
-			font-style: normal;
-			font-weight: 700;
-			line-height: normal;
-			background: ${color};
-		}`;
+					newTitle.appendChild(completeTrophy);
+				}
+	
 
-		card.querySelector(`#enter-${id}`).addEventListener('click', () => this.clickEnter(id));
-		card.appendChild(style);
-		// Attach click event to the card
-		GridOfCards.appendChild(card);
-	  }
+			}
+			else if (state == 'Complete')
+			{
+				let trophyParent = card.querySelector(`#trophy-${id}`); 
+				let completeTrophy = document.createElement('img');
+				completeTrophy.src = "/public/assets/icons/trophy.svg";
+				completeTrophy.width = 30;
+				completeTrophy.height = 30;
+
+				trophyParent.appendChild(completeTrophy);
+			}
+			else 
+			{
+				let trophyParent = card.querySelector(`#trophy-${id}`); 
+				if (trophyParent) {
+
+					let completeTrophy = document.createElement('img');
+					completeTrophy.src = "/public/assets/icons/trophy-black.svg";
+					completeTrophy.width = 30;
+					completeTrophy.height = 30;
+					
+					trophyParent.appendChild(completeTrophy);
+				}
+			} 
 		
+			
+			
+			GridOfCards.appendChild(card);
+		}
 	}
+
+	
 	connectedCallback() {
-		console.log('Admin Forms mounted');
+		this.addCard({
+			id: 1,
+			title: "Formulario Empleo Estudiantes",
+			startDate: "01/11/2024",
+			endDate: "15/11/2024",
+			badges: [{ text: "Info", }, { text: "Alert" }],
+			state: 'Complete',
+			imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5GQARsHihVdu6u6zx-dPvQy9z42nlQXo8bg&s'
+		  });
+		  this.addCard({
+			id: 2,
+			title: "Formulario Satisfacción Piscina",
+			startDate: "16/11/2024",
+			endDate: "30/11/2024",
+			badges: [{ text: "Info", }, { text: "Alert" }],
+			state: 'New',
+			imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5GQARsHihVdu6u6zx-dPvQy9z42nlQXo8bg&s'
+		  });
+		  this.addCard({
+			id: 3,
+			title: "Dynamic Card 2",
+			startDate: "16/11/2024",
+			endDate: "30/11/2024",
+			badges: [{ text: "Info"}, { text: "Alert" }],
+			state: 'Normal',
+			color: '#3ED008',
+			imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5GQARsHihVdu6u6zx-dPvQy9z42nlQXo8bg&s'
+		  });
+		  this.addCard({
+			id: 4,
+			title: "Dynamic Card 2",
+			startDate: "16/11/2024",
+			endDate: "30/11/2024",
+			badges: [{ text: "Info" }, { text: "Alert"}],
+			state: 'New',
+			color: '#3ED008',
+			imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5GQARsHihVdu6u6zx-dPvQy9z42nlQXo8bg&s'
+		  });
+		  this.addCard({
+			id: 5,
+			title: "Dynamic Card 2",
+			startDate: "16/11/2024",
+			endDate: "30/11/2024",
+			badges: [{ text: "Info" }, { text: "Alert" }],
+			state: 'Complete',
+			color: '#3ED008',
+			imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5GQARsHihVdu6u6zx-dPvQy9z42nlQXo8bg&s'
+		  });
+		  this.addCard({
+			id: 6,
+			title: "Dynamic Card 2",
+			startDate: "16/11/2024",
+			endDate: "30/11/2024",
+			badges: [{ text: "Info" }, { text: "Alert" }],
+			state: 'New',
+			color: '#3ED008',
+			imageUrl: 'https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png'
+		  });
 	}
   }
   
-  window.customElements.define('user-forms', UserForms);
+  window.customElements.define('user-forms', AdminForms);
+  
