@@ -12,7 +12,19 @@ header {
     padding-right: 3vw;
 }
 
-h1 {
+user-forms {
+    position: absolute; /* Allows positioning using top, left, right, bottom */
+    top: 14vh; /* Adjust to match the height of your header */
+    left: 0;
+    width: 100%; /* Match the width of the page */
+    z-index: 5; /* Ensure it's above other content but below overlays */
+    background-color: #2d2d2d; /* Optional: Set a background color */
+    color: white; /* Optional: Adjust text color */
+    padding: 1rem; /* Optional: Add padding for content */
+}
+
+
+.user-title-name {
     color: white;
     font-size: 1.5rem;
     font-weight: 700;
@@ -23,7 +35,7 @@ h1 {
 
 .rounded-circle {
     border-radius: 50%;
-    width: 100px;
+    width: 80px;
     border: 5px solid white;
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 }
