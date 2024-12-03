@@ -22,7 +22,7 @@ class AdminForms extends HTMLElement {
 	importStyles() {
 	  const generalBootstrap = document.createElement('link');
 	  generalBootstrap.setAttribute('rel', 'stylesheet');
-	  generalBootstrap.setAttribute('href', '/bootstrap_changes.css');
+	  generalBootstrap.setAttribute('href', '/bootstrap_changes_white.css');
   
 	  const styleLink = document.createElement('link');
 	  styleLink.setAttribute('rel', 'stylesheet');
