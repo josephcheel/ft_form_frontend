@@ -1,4 +1,4 @@
-class AdminForms extends HTMLElement {
+class UserForms extends HTMLElement {
 	constructor() {
 	  super();
 	  this.shadow = this.attachShadow({ mode: 'open' });
@@ -252,5 +252,5 @@ class AdminForms extends HTMLElement {
 	}
   }
   
-  window.customElements.define('user-forms', AdminForms);
+  window.customElements.define('user-forms', UserForms);
   
