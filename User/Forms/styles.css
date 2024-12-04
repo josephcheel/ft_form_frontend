@@ -2,7 +2,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Oswald:wght@200..700&display=swap');
 
 .card-tall {
-	height: 400px;
+	height: 300px;
+	max-height: 300px;
+	min-height: 300px;
 	/* Set the height of the card */
 }
 
